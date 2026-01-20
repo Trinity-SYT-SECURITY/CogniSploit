@@ -1,0 +1,122 @@
+[
+    {
+        "tool_name": "nmap",
+        "description": "Network exploration and port scanning tool (non-privileged)",
+        "command": "nmap -sT -sV -p- -T4 -A -sC -Pn {target}",
+        "parameters": [
+            {"name": "target", "description": "Target IP or hostname", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "Network reconnaissance, port scanning, service detection",
+        "wait_parameters": {
+            "max_wait": 180,
+            "min_wait": 10,
+            "check_interval": 5
+        }
+    },
+    {
+        "tool_name": "whatweb",
+        "description": "Website fingerprinting and technology detection",
+        "command": "whatweb -v {target}",
+        "parameters": [
+            {"name": "target", "description": "Target URL", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "Web technology reconnaissance, version detection",
+        "wait_parameters": {
+            "max_wait": 120,
+            "min_wait": 8,
+            "check_interval": 5
+        }
+    },
+    {
+        "tool_name": "gobuster",
+        "description": "Directory and file enumeration tool",
+        "command": "gobuster dir -u {target} -w {wordlist:fuzz_dirs.txt}",
+        "parameters": [
+            {"name": "target", "description": "Target URL", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "Directory enumeration, hidden file discovery",
+        "wait_parameters": {
+            "max_wait": 600,
+            "min_wait": 20,
+            "check_interval": 5
+        }
+    },
+    {
+        "tool_name": "nikto",
+        "description": "Web vulnerability scanner",
+        "command": "nikto -h {target} -Format txt -o nikto_scan.txt",
+        "parameters": [
+            {"name": "target", "description": "Target URL", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "Web vulnerability scanning, security misconfiguration detection",
+        "wait_parameters": {
+            "max_wait": 1800,
+            "min_wait": 60,
+            "check_interval": 5
+        }
+    },
+    {
+        "tool_name": "sqlmap",
+        "description": "SQL injection testing and exploitation tool",
+        "command": "sqlmap -u {target} --batch --random-agent --level 1 --risk 1 --output-dir sqlmap_results",
+        "parameters": [
+            {"name": "target", "description": "Target URL with parameter", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "SQL injection testing, database exploitation",
+        "wait_parameters": {
+            "max_wait": 1200,
+            "min_wait": 45,
+            "check_interval": 5
+        }
+    },
+    {
+        "tool_name": "hydra",
+        "description": "Password brute forcing tool (non-privileged)",
+        "command": "hydra -L {wordlist:common_passwords_username.txt} -P {wordlist:common_passwords_username.txt} {target} http-post-form '/login:username=^USER^&password=^PASS^:Invalid credentials' -o hydra_results.txt",
+        "parameters": [
+            {"name": "target", "description": "Target hostname", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "Password brute forcing, authentication testing",
+        "wait_parameters": {
+            "max_wait": 1800,
+            "min_wait": 60,
+            "check_interval": 5
+        }
+    },
+    {
+        "tool_name": "dirb",
+        "description": "Web content scanner",
+        "command": "dirb {target} {wordlist:fuzz_dirs.txt} -X .php,.html,.txt,.js,.css -o dirb_results.txt",
+        "parameters": [
+            {"name": "target", "description": "Target URL", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "Directory enumeration, content discovery",
+        "wait_parameters": {
+            "max_wait": 600,
+            "min_wait": 20,
+            "check_interval": 5
+        }
+    },
+    {
+        "tool_name": "wfuzz",
+        "description": "Web application fuzzer",
+        "command": "wfuzz -w {wordlist:fuzz_dirs.txt} -u {target}/FUZZ -o wfuzz_results.txt",
+        "parameters": [
+            {"name": "target", "description": "Target URL", "type": "string"}
+        ],
+        "output_format": "text",
+        "security_context": "Web application fuzzing, parameter testing",
+        "wait_parameters": {
+            "max_wait": 600,
+            "min_wait": 20,
+            "check_interval": 5
+        }
+    }
+]
